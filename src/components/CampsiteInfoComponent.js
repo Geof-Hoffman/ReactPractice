@@ -152,7 +152,7 @@ const validEmail = val => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
             );
         }
 
-    function RenderComments({comments}) {
+    function RenderComments({comments, addComment, campsiteId}) {
         if (comments) {
             return (
                 <div className="col col-md-5 m-1">
@@ -169,7 +169,7 @@ const validEmail = val => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
                     })}
 
                     <React.Fragment>
-                        < CommentForm />
+                    <CommentForm campsiteId={campsiteId} addComment={addComment} />
                     </React.Fragment>  
                 </div>
             );
@@ -192,7 +192,11 @@ const validEmail = val => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
                     </div>
                     <div className="row">
                         <RenderCampsite campsite= {props.campsite} />
-                        <RenderComments comments ={props.comments} />
+                        <RenderComments 
+                        comments={props.comments}
+                        addComment={props.addComment}
+                        campsiteId={props.campsite.id}
+                    />
                     </div>
                 </div>
             );
