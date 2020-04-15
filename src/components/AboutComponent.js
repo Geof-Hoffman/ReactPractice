@@ -1,32 +1,49 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 
 function About(props) {
    
-    const partners = props.partners.map(partner => {
+    const partner = props.partners.partners.map(partner => {
         return (
             <Media tag="li" key={partner.id}> 
-                <RenderPartner partner= {partner} />
+                <RenderPartner partner= {partner}
+                isLoading={props.partnersLoading}
+                errMess={props.partnersErrMess}
+                />
             </Media>
         );
     });
   
 
 
-function RenderPartner({partner}) {
+function RenderPartner({partner, isLoading, errMess}) {
     if (partner) {
+        if (isLoading) {
+            return (
+                 <Loading />
+            );
+        }
+        if (errMess) {
+            return (
+                <h4>{errMess}</h4>
+            );
+        }
         return (
             <React.Fragment>
-                    <Media object src={partner.image} alt={partner.name} width='150' />
+                    <Media object src={baseUrl + partner.image} alt={partner.name} width='150' />
                     <Media body className= "ml-5 mb-4"> 
                         <Media heading> {partner.name} </Media>
                         {partner.description}                     
-                    </Media> >
+                    </Media> 
                 </ React.Fragment>
          );
         }
+
+
         return <div />
     }
 
@@ -84,7 +101,7 @@ function RenderPartner({partner}) {
                 </div>
                 <div className="col mt-4">
                     <Media list>
-                        {partners}
+                        {partner}
                     </Media>
                 </div>
             </div>
