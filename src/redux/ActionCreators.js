@@ -74,7 +74,6 @@ export const addComment = comment => ({
 });
 
 export const postComment = (campsiteId, rating, author, text) => dispatch => {
-    
     const newComment = {
         campsiteId: campsiteId,
         rating: rating,
